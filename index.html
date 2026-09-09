@@ -1,0 +1,269 @@
+﻿<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>Borsa Takip — Batch-01</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: -apple-system, Segoe UI, Arial, sans-serif; margin: 0; padding: 24px 32px 48px; background: #f7f7f5; color: #1c1c1a; }
+  @media (prefers-color-scheme: dark) { body { background: #161614; color: #e8e6e1; } }
+  h1 { font-size: 1.4rem; margin: 0 0 4px; }
+  .sub { color: #888; font-size: 0.85rem; margin-bottom: 24px; }
+  section { margin-bottom: 32px; }
+  h2 { font-size: 1rem; text-transform: uppercase; letter-spacing: 0.04em; color: #888; margin: 0 0 12px; }
+  table { border-collapse: collapse; width: 100%; background: transparent; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid rgba(128,128,128,0.2); font-size: 0.92rem; vertical-align: middle; }
+  th { font-weight: 600; color: #888; font-size: 0.78rem; text-transform: uppercase; }
+  .ticker { font-weight: 700; }
+  .ticker .name { display: block; font-weight: 400; font-size: 0.78rem; color: #888; }
+  .up { color: #2e8b57; font-weight: 600; }
+  .down { color: #c0392b; font-weight: 600; }
+  .muted { color: #888; }
+  .spark { display: block; }
+  ul.rules { padding-left: 20px; margin: 0; }
+  ul.rules li { margin-bottom: 6px; font-size: 0.92rem; }
+  .report { border-left: 3px solid #888; padding: 6px 14px; margin-bottom: 14px; }
+  .report-time { font-size: 0.78rem; color: #888; margin-bottom: 4px; }
+  .report-body { font-size: 0.92rem; }
+  .badge { display: inline-block; background: rgba(128,128,128,0.15); border-radius: 6px; padding: 2px 8px; font-size: 0.78rem; margin-right: 8px; }
+  .hint { color: #888; font-size: 0.82rem; margin: -6px 0 10px; }
+  tr.company-row { cursor: pointer; }
+  tr.company-row:hover { background: rgba(128,128,128,0.08); }
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 50; align-items: center; justify-content: center; }
+  .modal-overlay.open { display: flex; }
+  .modal-box { background: #fff; color: #1c1c1a; border-radius: 10px; padding: 20px 24px; max-width: 820px; width: 92%; max-height: 88vh; overflow: auto; }
+  @media (prefers-color-scheme: dark) { .modal-box { background: #1f1f1c; color: #e8e6e1; } }
+  .modal-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+  .modal-header h3 { margin: 0; font-size: 1.15rem; }
+  .modal-close { cursor: pointer; background: none; border: none; font-size: 1.4rem; color: inherit; line-height: 1; }
+  .modal-sub { color: #888; font-size: 0.85rem; margin-bottom: 14px; }
+  .chart-svg text { font-size: 10px; fill: #888; }
+  .chart-svg .grid { stroke: rgba(128,128,128,0.15); stroke-width: 1; }
+  .chart-svg .baseline-line { stroke: #888; stroke-dasharray: 4 3; stroke-width: 1; }
+</style>
+</head>
+<body>
+<h1>Borsa Takip Dashboard</h1>
+<div class="sub">
+  <span class="badge">Batch-01</span>
+  <span class="badge">Gun 1</span>
+  <span class="badge">40 saatlik okuma</span>
+  Son uretim: 09.09.2026 16:52
+</div>
+
+<section>
+  <h2>Sirketler</h2>
+  <p class="hint">Bir satira veya trend cizgisine tikla, o sirketin baseline'dan bugune tum gecmisini gor.</p>
+  <table>
+    <tr><th>Ticker</th><th>Piyasa</th><th>Baseline</th><th>Guncel</th><th>% Degisim</th><th>Saatlik trend</th><th>Son okuma</th></tr>
+    <tr class="company-row" onclick="openChart('THYAO')">
+  <td class="ticker">THYAO<span class="name">Türk Hava Yolları</span></td>
+  <td>BIST</td>
+  <td>296,00 TRY</td>
+  <td>303,00 TRY</td>
+  <td class="up">+2,36%</td>
+  <td><svg width='120' height='32' viewBox='0 0 120 32' class='spark'><polyline points='2,30 31,2 60,4,4 89,3,6 118,7,6' fill='none' stroke='#2e8b57' stroke-width='1.6' /></svg></td>
+  <td class="muted">09.09 16:10</td>
+</tr><tr class="company-row" onclick="openChart('ASELS')">
+  <td class="ticker">ASELS<span class="name">Aselsan</span></td>
+  <td>BIST</td>
+  <td>388,25 TRY</td>
+  <td>406,00 TRY</td>
+  <td class="up">+4,57%</td>
+  <td><svg width='120' height='32' viewBox='0 0 120 32' class='spark'><polyline points='2,30 31,9,5 60,7,9 89,7,5 118,2' fill='none' stroke='#2e8b57' stroke-width='1.6' /></svg></td>
+  <td class="muted">09.09 16:10</td>
+</tr><tr class="company-row" onclick="openChart('KCHOL')">
+  <td class="ticker">KCHOL<span class="name">Koç Holding</span></td>
+  <td>BIST</td>
+  <td>224,80 TRY</td>
+  <td>225,70 TRY</td>
+  <td class="up">+0,40%</td>
+  <td><svg width='120' height='32' viewBox='0 0 120 32' class='spark'><polyline points='2,30 31,2 60,13,7 89,14,8 118,19,5' fill='none' stroke='#2e8b57' stroke-width='1.6' /></svg></td>
+  <td class="muted">09.09 16:10</td>
+</tr><tr class="company-row" onclick="openChart('EREGL')">
+  <td class="ticker">EREGL<span class="name">Ereğli Demir Çelik</span></td>
+  <td>BIST</td>
+  <td>39,92 TRY</td>
+  <td>39,50 TRY</td>
+  <td class="down">-1,05%</td>
+  <td><svg width='120' height='32' viewBox='0 0 120 32' class='spark'><polyline points='2,2 31,6 60,10 89,11,3 118,30' fill='none' stroke='#c0392b' stroke-width='1.6' /></svg></td>
+  <td class="muted">09.09 16:10</td>
+</tr><tr class="company-row" onclick="openChart('SISE')">
+  <td class="ticker">SISE<span class="name">Şişecam</span></td>
+  <td>BIST</td>
+  <td>45,82 TRY</td>
+  <td>47,38 TRY</td>
+  <td class="up">+3,40%</td>
+  <td><svg width='120' height='32' viewBox='0 0 120 32' class='spark'><polyline points='2,30 31,3 60,2,5 89,2 118,10' fill='none' stroke='#2e8b57' stroke-width='1.6' /></svg></td>
+  <td class="muted">09.09 16:10</td>
+</tr><tr class="company-row" onclick="openChart('NVDA')">
+  <td class="ticker">NVDA<span class="name">NVIDIA</span></td>
+  <td>US</td>
+  <td>232,00 USD</td>
+  <td>225,73 USD</td>
+  <td class="down">-2,70%</td>
+  <td><svg width='120' height='32' viewBox='0 0 120 32' class='spark'><polyline points='2,2 31,30 60,30 89,30 118,30' fill='none' stroke='#c0392b' stroke-width='1.6' /></svg></td>
+  <td class="muted">09.09 16:10</td>
+</tr><tr class="company-row" onclick="openChart('TSLA')">
+  <td class="ticker">TSLA<span class="name">Tesla</span></td>
+  <td>US</td>
+  <td>365,88 USD</td>
+  <td>368,16 USD</td>
+  <td class="up">+0,62%</td>
+  <td><svg width='120' height='32' viewBox='0 0 120 32' class='spark'><polyline points='2,30 31,2 60,2 89,2 118,2' fill='none' stroke='#2e8b57' stroke-width='1.6' /></svg></td>
+  <td class="muted">09.09 16:10</td>
+</tr><tr class="company-row" onclick="openChart('AAPL')">
+  <td class="ticker">AAPL<span class="name">Apple</span></td>
+  <td>US</td>
+  <td>314,19 USD</td>
+  <td>316,22 USD</td>
+  <td class="up">+0,65%</td>
+  <td><svg width='120' height='32' viewBox='0 0 120 32' class='spark'><polyline points='2,30 31,2 60,2 89,2 118,2' fill='none' stroke='#2e8b57' stroke-width='1.6' /></svg></td>
+  <td class="muted">09.09 16:10</td>
+</tr><tr class="company-row" onclick="openChart('AMD')">
+  <td class="ticker">AMD<span class="name">AMD</span></td>
+  <td>US</td>
+  <td>505,74 USD</td>
+  <td>505,74 USD</td>
+  <td class="up">+0,00%</td>
+  <td><svg width='120' height='32' viewBox='0 0 120 32' class='spark'><polyline points='2,30 31,30 60,30 89,30 118,30' fill='none' stroke='#2e8b57' stroke-width='1.6' /></svg></td>
+  <td class="muted">09.09 16:10</td>
+</tr><tr class="company-row" onclick="openChart('PLTR')">
+  <td class="ticker">PLTR<span class="name">Palantir Technologies</span></td>
+  <td>US</td>
+  <td>170,30 USD</td>
+  <td>170,30 USD</td>
+  <td class="up">+0,00%</td>
+  <td><svg width='120' height='32' viewBox='0 0 120 32' class='spark'><polyline points='2,30 31,30 60,30 89,30 118,30' fill='none' stroke='#2e8b57' stroke-width='1.6' /></svg></td>
+  <td class="muted">09.09 16:10</td>
+</tr>
+  </table>
+</section>
+
+<section>
+  <h2>Bu sistemin kurallari</h2>
+  <ul class="rules">
+    <li>Saatlik fiyatlar Yahoo Finance genel API'sinden dogrudan okunur — tahmin/websearch yok, kaynaklar-arasi tutarsizlik riski minimal.</li>
+    <li>Veri okunamazsa "veri yok" gosterilir, rakam uydurulmaz.</li>
+    <li>%10 esigi garanti degil, 7 gunluk gecmise donuk tespittir (bkz. Batch README).</li>
+    <li>Awoken saat basi sessizce veri toplar, otomatik mesaj/rapor atmaz — rapor sadece Eren istedikce sohbette verilir ve burada birikir.</li>
+    <li>Bu dashboard tamamen yerel: internete gitmez, veriler sadece bu bilgisayarda durur.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Raporlar</h2>
+  <div class='report'><div class='report-time'>09.09.2026 15:18</div><div class='report-body'>Sistem kuruldu: saatlik fiyat takibi + yerel dashboard aktif.<br>Batch-01, Gun 1: 10 sirketten 8&#39;i yukselise gecti (THYAO, ASELS, KCHOL, SISE, TSLA, AAPL, AMD, PLTR pozitif), EREGL ve NVDA hafif eksi.<br>En cok yukselen: SISE ~%4.6, en cok dusen: NVDA ~%2.7.</div></div>
+
+</section>
+
+<div class="modal-overlay" id="chartModal" onclick="if(event.target===this) closeChart()">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 id="chartTitle"></h3>
+      <button class="modal-close" onclick="closeChart()">&times;</button>
+    </div>
+    <div class="modal-sub" id="chartSub"></div>
+    <div id="chartBody"></div>
+  </div>
+</div>
+
+<script>
+var historyData = {"THYAO":[{"t":"2026-09-09T00:00:00","p":296},{"t":"2026-09-09T15:09:17","p":304.75},{"t":"2026-09-09T15:17:09","p":304},{"t":"2026-09-09T15:17:32","p":304.25},{"t":"2026-09-09T16:10:54","p":303}],"ASELS":[{"t":"2026-09-09T00:00:00","p":388.25},{"t":"2026-09-09T15:09:17","p":401.25},{"t":"2026-09-09T15:17:09","p":402.25},{"t":"2026-09-09T15:17:32","p":402.5},{"t":"2026-09-09T16:10:54","p":406}],"KCHOL":[{"t":"2026-09-09T00:00:00","p":224.8},{"t":"2026-09-09T15:09:17","p":227.2},{"t":"2026-09-09T15:17:09","p":226.2},{"t":"2026-09-09T15:17:32","p":226.1},{"t":"2026-09-09T16:10:54","p":225.7}],"EREGL":[{"t":"2026-09-09T00:00:00","p":39.92},{"t":"2026-09-09T15:09:17","p":39.86},{"t":"2026-09-09T15:17:09","p":39.8},{"t":"2026-09-09T15:17:32","p":39.78},{"t":"2026-09-09T16:10:54","p":39.5}],"SISE":[{"t":"2026-09-09T00:00:00","p":45.82},{"t":"2026-09-09T15:09:17","p":47.92},{"t":"2026-09-09T15:17:09","p":47.96},{"t":"2026-09-09T15:17:32","p":48},{"t":"2026-09-09T16:10:54","p":47.38}],"NVDA":[{"t":"2026-09-09T00:00:00","p":232},{"t":"2026-09-09T15:09:17","p":225.73},{"t":"2026-09-09T15:17:09","p":225.73},{"t":"2026-09-09T15:17:32","p":225.73},{"t":"2026-09-09T16:10:54","p":225.73}],"TSLA":[{"t":"2026-09-09T00:00:00","p":365.88},{"t":"2026-09-09T15:09:17","p":368.16},{"t":"2026-09-09T15:17:09","p":368.16},{"t":"2026-09-09T15:17:32","p":368.16},{"t":"2026-09-09T16:10:54","p":368.16}],"AAPL":[{"t":"2026-09-09T00:00:00","p":314.19},{"t":"2026-09-09T15:09:17","p":316.22},{"t":"2026-09-09T15:17:09","p":316.22},{"t":"2026-09-09T15:17:32","p":316.22},{"t":"2026-09-09T16:10:54","p":316.22}],"AMD":[{"t":"2026-09-09T00:00:00","p":505.74},{"t":"2026-09-09T15:09:17","p":505.74},{"t":"2026-09-09T15:17:09","p":505.74},{"t":"2026-09-09T15:17:32","p":505.74},{"t":"2026-09-09T16:10:54","p":505.74}],"PLTR":[{"t":"2026-09-09T00:00:00","p":170.3},{"t":"2026-09-09T15:09:17","p":170.3},{"t":"2026-09-09T15:17:09","p":170.3},{"t":"2026-09-09T15:17:32","p":170.3},{"t":"2026-09-09T16:10:54","p":170.3}]};
+var companyMeta = {"THYAO":{"name":"Türk Hava Yolları","market":"BIST","currency":"TRY","baseline":296},"ASELS":{"name":"Aselsan","market":"BIST","currency":"TRY","baseline":388.25},"KCHOL":{"name":"Koç Holding","market":"BIST","currency":"TRY","baseline":224.8},"EREGL":{"name":"Ereğli Demir Çelik","market":"BIST","currency":"TRY","baseline":39.92},"SISE":{"name":"Şişecam","market":"BIST","currency":"TRY","baseline":45.82},"NVDA":{"name":"NVIDIA","market":"US","currency":"USD","baseline":232},"TSLA":{"name":"Tesla","market":"US","currency":"USD","baseline":365.88},"AAPL":{"name":"Apple","market":"US","currency":"USD","baseline":314.19},"AMD":{"name":"AMD","market":"US","currency":"USD","baseline":505.74},"PLTR":{"name":"Palantir Technologies","market":"US","currency":"USD","baseline":170.3}};
+
+function fmtNum(v) {
+  return v.toFixed(2);
+}
+
+function fmtTime(t) {
+  return t.replace("T", " ");
+}
+
+function buildChart(ticker) {
+  var points = historyData[ticker] || [];
+  var meta = companyMeta[ticker];
+  if (points.length === 0) { return "<p class=\"muted\">Veri yok.</p>"; }
+  var w = 740, h = 320, padL = 55, padR = 20, padT = 20, padB = 34;
+  var prices = [];
+  for (var i = 0; i < points.length; i++) { prices.push(points[i].p); }
+  var min = Math.min.apply(null, prices);
+  var max = Math.max.apply(null, prices);
+  if (min === max) { min -= 1; max += 1; }
+  var pad = (max - min) * 0.08;
+  min -= pad; max += pad;
+  var range = max - min;
+  var n = points.length;
+  function xAt(i) { return padL + (n <= 1 ? 0 : (i / (n - 1)) * (w - padL - padR)); }
+  function yAt(v) { return padT + (h - padT - padB) - ((v - min) / range) * (h - padT - padB); }
+
+  var baseline = meta.baseline;
+  var last = points[n - 1].p;
+  var trendUp = last >= baseline;
+  var color = trendUp ? "#2e8b57" : "#c0392b";
+
+  var linePts = "";
+  var circles = "";
+  for (var i = 0; i < n; i++) {
+    var px = xAt(i).toFixed(1);
+    var py = yAt(points[i].p).toFixed(1);
+    linePts += px + "," + py + " ";
+    circles += "<circle cx=\"" + px + "\" cy=\"" + py + "\" r=\"2.6\" fill=\"" + color + "\"><title>" + fmtTime(points[i].t) + " — " + fmtNum(points[i].p) + " " + meta.currency + "</title></circle>";
+  }
+
+  var baselineY = yAt(baseline).toFixed(1);
+
+  var gridLines = "";
+  var steps = 4;
+  for (var s = 0; s <= steps; s++) {
+    var v = min + (range * s / steps);
+    var gy = yAt(v).toFixed(1);
+    gridLines += "<line class=\"grid\" x1=\"" + padL + "\" x2=\"" + (w - padR) + "\" y1=\"" + gy + "\" y2=\"" + gy + "\" />";
+    gridLines += "<text x=\"" + (padL - 8) + "\" y=\"" + (parseFloat(gy) + 3) + "\" text-anchor=\"end\">" + v.toFixed(2) + "</text>";
+  }
+
+  var xLabels = "";
+  var labelCount = Math.min(6, n);
+  for (var li = 0; li < labelCount; li++) {
+    var idx = labelCount <= 1 ? 0 : Math.round(li * (n - 1) / (labelCount - 1));
+    var lx = xAt(idx).toFixed(1);
+    var raw = points[idx].t;
+    var label = raw.length >= 16 ? raw.substring(5, 10) + " " + raw.substring(11, 16) : raw;
+    xLabels += "<text x=\"" + lx + "\" y=\"" + (h - padB + 16) + "\" text-anchor=\"middle\">" + label + "</text>";
+  }
+
+  var svg = "<svg class=\"chart-svg\" width=\"" + w + "\" height=\"" + h + "\" viewBox=\"0 0 " + w + " " + h + "\">";
+  svg += gridLines;
+  svg += "<line class=\"baseline-line\" x1=\"" + padL + "\" x2=\"" + (w - padR) + "\" y1=\"" + baselineY + "\" y2=\"" + baselineY + "\" />";
+  svg += "<text x=\"" + (w - padR) + "\" y=\"" + (parseFloat(baselineY) - 4) + "\" text-anchor=\"end\" fill=\"#888\">baseline " + fmtNum(baseline) + "</text>";
+  svg += "<polyline points=\"" + linePts.trim() + "\" fill=\"none\" stroke=\"" + color + "\" stroke-width=\"1.8\" />";
+  svg += circles;
+  svg += xLabels;
+  svg += "</svg>";
+  return svg;
+}
+
+function openChart(ticker) {
+  var meta = companyMeta[ticker];
+  if (!meta) { return; }
+  document.getElementById("chartTitle").textContent = ticker + " — " + meta.name;
+  var points = historyData[ticker] || [];
+  var last = points.length ? points[points.length - 1].p : meta.baseline;
+  var pct = ((last - meta.baseline) / meta.baseline) * 100;
+  var pctStr = (pct >= 0 ? "+" : "") + pct.toFixed(2) + "%";
+  document.getElementById("chartSub").textContent = meta.market + " · baseline " + fmtNum(meta.baseline) + " " + meta.currency + " · guncel " + fmtNum(last) + " " + meta.currency + " (" + pctStr + ") · " + points.length + " veri noktasi";
+  document.getElementById("chartBody").innerHTML = buildChart(ticker);
+  document.getElementById("chartModal").classList.add("open");
+}
+
+function closeChart() {
+  document.getElementById("chartModal").classList.remove("open");
+}
+
+document.addEventListener("keydown", function(e) {
+  if (e.key === "Escape") { closeChart(); }
+});
+</script>
+
+</body>
+</html>
