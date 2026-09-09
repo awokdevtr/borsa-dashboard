@@ -40,6 +40,13 @@
   .chart-svg text { font-size: 10px; fill: #888; }
   .chart-svg .grid { stroke: rgba(128,128,128,0.15); stroke-width: 1; }
   .chart-svg .baseline-line { stroke: #888; stroke-dasharray: 4 3; stroke-width: 1; }
+  .pred-list { margin-top: 16px; border-top: 1px solid rgba(128,128,128,0.2); padding-top: 12px; }
+  .pred-list h4 { margin: 0 0 8px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.04em; color: #888; }
+  .pred-item { display: flex; gap: 10px; align-items: baseline; font-size: 0.88rem; padding: 5px 0; border-bottom: 1px solid rgba(128,128,128,0.1); }
+  .pred-date { color: #888; font-size: 0.78rem; min-width: 78px; }
+  .pred-outcome { margin-left: auto; font-size: 0.78rem; white-space: nowrap; }
+  .pred-outcome.tuttu { color: #2e8b57; }
+  .pred-outcome.tutmadi { color: #c0392b; }
 </style>
 </head>
 <body>
@@ -48,7 +55,7 @@
   <span class="badge">Batch-01</span>
   <span class="badge">Gun 1</span>
   <span class="badge">60 saatlik okuma</span>
-  Son uretim: 09.09.2026 18:10
+  Son uretim: 09.09.2026 18:11
 </div>
 
 <section>
@@ -183,6 +190,7 @@
 <script>
 var historyData = {"THYAO":[{"t":"2026-09-09T00:00:00","p":296},{"t":"2026-09-09T15:09:17","p":304.75},{"t":"2026-09-09T15:17:09","p":304},{"t":"2026-09-09T15:17:32","p":304.25},{"t":"2026-09-09T16:10:54","p":303},{"t":"2026-09-09T17:10:54","p":303.75},{"t":"2026-09-09T18:10:54","p":301.25}],"ASELS":[{"t":"2026-09-09T00:00:00","p":388.25},{"t":"2026-09-09T15:09:17","p":401.25},{"t":"2026-09-09T15:17:09","p":402.25},{"t":"2026-09-09T15:17:32","p":402.5},{"t":"2026-09-09T16:10:54","p":406},{"t":"2026-09-09T17:10:54","p":403.25},{"t":"2026-09-09T18:10:54","p":404.25}],"KCHOL":[{"t":"2026-09-09T00:00:00","p":224.8},{"t":"2026-09-09T15:09:17","p":227.2},{"t":"2026-09-09T15:17:09","p":226.2},{"t":"2026-09-09T15:17:32","p":226.1},{"t":"2026-09-09T16:10:54","p":225.7},{"t":"2026-09-09T17:10:54","p":226},{"t":"2026-09-09T18:10:54","p":224.1}],"EREGL":[{"t":"2026-09-09T00:00:00","p":39.92},{"t":"2026-09-09T15:09:17","p":39.86},{"t":"2026-09-09T15:17:09","p":39.8},{"t":"2026-09-09T15:17:32","p":39.78},{"t":"2026-09-09T16:10:54","p":39.5},{"t":"2026-09-09T17:10:54","p":39.66},{"t":"2026-09-09T18:10:54","p":38.98}],"SISE":[{"t":"2026-09-09T00:00:00","p":45.82},{"t":"2026-09-09T15:09:17","p":47.92},{"t":"2026-09-09T15:17:09","p":47.96},{"t":"2026-09-09T15:17:32","p":48},{"t":"2026-09-09T16:10:54","p":47.38},{"t":"2026-09-09T17:10:54","p":47.56},{"t":"2026-09-09T18:10:54","p":45.02}],"NVDA":[{"t":"2026-09-09T00:00:00","p":232},{"t":"2026-09-09T15:09:17","p":225.73},{"t":"2026-09-09T15:17:09","p":225.73},{"t":"2026-09-09T15:17:32","p":225.73},{"t":"2026-09-09T16:10:54","p":225.73},{"t":"2026-09-09T17:10:54","p":224.38},{"t":"2026-09-09T18:10:54","p":224.44}],"TSLA":[{"t":"2026-09-09T00:00:00","p":365.88},{"t":"2026-09-09T15:09:17","p":368.16},{"t":"2026-09-09T15:17:09","p":368.16},{"t":"2026-09-09T15:17:32","p":368.16},{"t":"2026-09-09T16:10:54","p":368.16},{"t":"2026-09-09T17:10:54","p":370.86},{"t":"2026-09-09T18:10:54","p":368.82}],"AAPL":[{"t":"2026-09-09T00:00:00","p":314.19},{"t":"2026-09-09T15:09:17","p":316.22},{"t":"2026-09-09T15:17:09","p":316.22},{"t":"2026-09-09T15:17:32","p":316.22},{"t":"2026-09-09T16:10:54","p":316.22},{"t":"2026-09-09T17:10:54","p":317.25},{"t":"2026-09-09T18:10:54","p":312.5}],"AMD":[{"t":"2026-09-09T00:00:00","p":505.74},{"t":"2026-09-09T15:09:17","p":505.74},{"t":"2026-09-09T15:17:09","p":505.74},{"t":"2026-09-09T15:17:32","p":505.74},{"t":"2026-09-09T16:10:54","p":505.74},{"t":"2026-09-09T17:10:54","p":523.15},{"t":"2026-09-09T18:10:54","p":520.33}],"PLTR":[{"t":"2026-09-09T00:00:00","p":170.3},{"t":"2026-09-09T15:09:17","p":170.3},{"t":"2026-09-09T15:17:09","p":170.3},{"t":"2026-09-09T15:17:32","p":170.3},{"t":"2026-09-09T16:10:54","p":170.3},{"t":"2026-09-09T17:10:54","p":169.24},{"t":"2026-09-09T18:10:54","p":170.12}]};
 var companyMeta = {"THYAO":{"name":"Türk Hava Yolları","market":"BIST","currency":"TRY","baseline":296},"ASELS":{"name":"Aselsan","market":"BIST","currency":"TRY","baseline":388.25},"KCHOL":{"name":"Koç Holding","market":"BIST","currency":"TRY","baseline":224.8},"EREGL":{"name":"Ereğli Demir Çelik","market":"BIST","currency":"TRY","baseline":39.92},"SISE":{"name":"Şişecam","market":"BIST","currency":"TRY","baseline":45.82},"NVDA":{"name":"NVIDIA","market":"US","currency":"USD","baseline":232},"TSLA":{"name":"Tesla","market":"US","currency":"USD","baseline":365.88},"AAPL":{"name":"Apple","market":"US","currency":"USD","baseline":314.19},"AMD":{"name":"AMD","market":"US","currency":"USD","baseline":505.74},"PLTR":{"name":"Palantir Technologies","market":"US","currency":"USD","baseline":170.3}};
+var predictionData = {"THYAO":[],"ASELS":[],"KCHOL":[],"EREGL":[],"SISE":[],"NVDA":[],"TSLA":[],"AAPL":[],"AMD":[],"PLTR":[]};
 
 function fmtNum(v) {
   return v.toFixed(2);
@@ -255,6 +263,21 @@ function buildChart(ticker) {
   return svg;
 }
 
+function buildPredictions(ticker) {
+  var preds = predictionData[ticker] || [];
+  if (preds.length === 0) { return ""; }
+  var html = "<div class='pred-list'><h4>Awoken tahmin gecmisi (yatirim tavsiyesi degildir)</h4>";
+  for (var i = preds.length - 1; i >= 0; i--) {
+    var p = preds[i];
+    var arrow = p.direction === "up" ? "▲ artis" : "▼ dusus";
+    var outcomeLabel = p.outcome === "tuttu" ? "✓ tuttu" : (p.outcome === "tutmadi" ? "✗ tutmadi" : "bekleniyor");
+    var outcomeClass = p.outcome === "tuttu" ? "tuttu" : (p.outcome === "tutmadi" ? "tutmadi" : "muted");
+    html += "<div class='pred-item'><span class='pred-date'>" + p.date + "</span><span>" + arrow + " — " + p.reasoning + "</span><span class='pred-outcome " + outcomeClass + "'>" + outcomeLabel + "</span></div>";
+  }
+  html += "</div>";
+  return html;
+}
+
 function openChart(ticker) {
   var meta = companyMeta[ticker];
   if (!meta) { return; }
@@ -265,6 +288,7 @@ function openChart(ticker) {
   var pctStr = (pct >= 0 ? "+" : "") + pct.toFixed(2) + "%";
   document.getElementById("chartSub").textContent = meta.market + " · baseline " + fmtNum(meta.baseline) + " " + meta.currency + " · guncel " + fmtNum(last) + " " + meta.currency + " (" + pctStr + ") · " + points.length + " veri noktasi";
   document.getElementById("chartBody").innerHTML = buildChart(ticker);
+  document.getElementById("predictionBody").innerHTML = buildPredictions(ticker);
   document.getElementById("chartModal").classList.add("open");
 }
 
