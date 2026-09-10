@@ -1593,5 +1593,55 @@
     "timestamp": "2026-09-10T16:07:03",
     "ticker": "PLTR",
     "price": 167.09
+  },
+  {
+    "timestamp": "2026-09-10T17:07:03",
+    "ticker": "THYAO",
+    "price": 299.25
+  },
+  {
+    "timestamp": "2026-09-10T17:07:03",
+    "ticker": "ASELS",
+    "price": 398.5
+  },
+  {
+    "timestamp": "2026-09-10T17:07:03",
+    "ticker": "KCHOL",
+    "price": 224.3
+  },
+  {
+    "timestamp": "2026-09-10T17:07:03",
+    "ticker": "EREGL",
+    "price": 38.98
+  },
+  {
+    "timestamp": "2026-09-10T17:07:03",
+    "ticker": "SISE",
+    "price": 44.06
+  },
+  {
+    "timestamp": "2026-09-10T17:07:03",
+    "ticker": "NVDA",
+    "price": 218.81
+  },
+  {
+    "timestamp": "2026-09-10T17:07:03",
+    "ticker": "TSLA",
+    "price": 366.18
+  },
+  {
+    "timestamp": "2026-09-10T17:07:03",
+    "ticker": "AAPL",
+    "price": 323.43
+  },
+  {
+    "timestamp": "2026-09-10T17:07:03",
+    "ticker": "AMD",
+    "price": 506.41
+  },
+  {
+    "timestamp": "2026-09-10T17:07:03",
+    "ticker": "PLTR",
+    "price": 166.47
   }
 ]
