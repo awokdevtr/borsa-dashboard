@@ -61748,5 +61748,55 @@
     "timestamp": "2026-11-05T21:07:03",
     "ticker": "JPM",
     "price": 340.17
+  },
+  {
+    "timestamp": "2026-11-05T22:07:03",
+    "ticker": "GARAN",
+    "price": 142.0
+  },
+  {
+    "timestamp": "2026-11-05T22:07:03",
+    "ticker": "TUPRS",
+    "price": 331.75
+  },
+  {
+    "timestamp": "2026-11-05T22:07:03",
+    "ticker": "BIMAS",
+    "price": 369.25
+  },
+  {
+    "timestamp": "2026-11-05T22:07:03",
+    "ticker": "TCELL",
+    "price": 91.8
+  },
+  {
+    "timestamp": "2026-11-05T22:07:03",
+    "ticker": "FROTO",
+    "price": 67.85
+  },
+  {
+    "timestamp": "2026-11-05T22:07:03",
+    "ticker": "MSFT",
+    "price": 536.94
+  },
+  {
+    "timestamp": "2026-11-05T22:07:03",
+    "ticker": "GOOGL",
+    "price": 283.17
+  },
+  {
+    "timestamp": "2026-11-05T22:07:03",
+    "ticker": "AMZN",
+    "price": 258.09
+  },
+  {
+    "timestamp": "2026-11-05T22:07:03",
+    "ticker": "META",
+    "price": 602.23
+  },
+  {
+    "timestamp": "2026-11-05T22:07:03",
+    "ticker": "JPM",
+    "price": 336.83
   }
 ]
